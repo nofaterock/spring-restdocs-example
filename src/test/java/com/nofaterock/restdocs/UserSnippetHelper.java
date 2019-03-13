@@ -16,13 +16,13 @@ import static org.springframework.restdocs.snippet.Attributes.key;
  */
 public interface UserSnippetHelper {
 
-	static PathParametersSnippet userPathParameters() {
+	static PathParametersSnippet pathParams() {
 		return pathParameters(
 			parameterWithName("id").description("사용자 ID")
 		);
 	}
 
-	static RequestFieldsSnippet userRequestFields() {
+	static RequestFieldsSnippet reqFields() {
 		return requestFields(
 			fieldWithPath("name").type(JsonFieldType.STRING).description("이름")
 				.attributes(key("format").value("20자 이내")),
@@ -31,7 +31,7 @@ public interface UserSnippetHelper {
 		);
 	}
 
-	static ResponseFieldsSnippet userResponseFields(boolean isArray) {
+	static ResponseFieldsSnippet resFields(boolean isArray) {
 		return responseFields(
 			fieldWithPath((isArray ? "[]." : "") + "id").type(JsonFieldType.NUMBER).description("사용자 ID"),
 			fieldWithPath((isArray ? "[]." : "") + "name").type(JsonFieldType.STRING).description("이름")

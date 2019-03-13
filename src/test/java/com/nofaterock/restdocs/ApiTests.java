@@ -30,8 +30,6 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -87,8 +85,8 @@ public class ApiTests {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andDo(document.document(
-				UserSnippetHelper.userRequestFields(),
-				UserSnippetHelper.userResponseFields(false)
+				UserSnippetHelper.reqFields(),
+				UserSnippetHelper.resFields(false)
 			))
 			.andExpect(jsonPath("$.id", notNullValue()))
 			.andExpect(jsonPath("$.name", is(user.get("name"))))
@@ -104,8 +102,8 @@ public class ApiTests {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andDo(document.document(
-				UserSnippetHelper.userPathParameters(),
-				UserSnippetHelper.userResponseFields(false)
+				UserSnippetHelper.pathParams(),
+				UserSnippetHelper.resFields(false)
 			))
 			.andExpect(jsonPath("$.id", is(user1.getId())))
 			.andExpect(jsonPath("$.name", is(user1.getName())))
@@ -122,7 +120,7 @@ public class ApiTests {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andDo(document.document(
-				UserSnippetHelper.userResponseFields(true)
+				UserSnippetHelper.resFields(true)
 			))
 			.andExpect(jsonPath("$.[0].id", is(user1.getId())))
 			.andExpect(jsonPath("$.[0].name", is(user1.getName())))
