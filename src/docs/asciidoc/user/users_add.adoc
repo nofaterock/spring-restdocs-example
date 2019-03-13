@@ -21,7 +21,7 @@ link:../index.html[Go API list.]
 
 include::{snippets}/api-tests/users_add/curl-request.adoc[]
 
-=== Path Parameters
+=== Fields
 
 include::{snippets}/api-tests/users_add/request-fields.adoc[]
 
