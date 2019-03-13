@@ -1,0 +1,15 @@
+spring:
+    h2:
+        console:
+            path: /h2-console
+    jpa:
+        hibernate:
+            ddl-auto: none
+        show-sql: true
+        open-in-view: false
+server:
+    port: 8080
+    servlet:
+        context-path: /
+
+
