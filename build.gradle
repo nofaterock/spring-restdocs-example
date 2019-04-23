@@ -1,40 +1,45 @@
 plugins {
 	id 'org.asciidoctor.convert' version '1.5.9.2'
 	id 'org.springframework.boot' version '2.1.3.RELEASE'
-	id 'java'
 }
+
+group = 'com.nofaterock.restdocs'
+version = '0.0.1-SNAPSHOT'
 
 apply plugin: "java"
 apply plugin: "idea"
 apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
 
-group = 'com.nofaterock.restdocs'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
-[compileJava, compileTestJava]*.options*.encoding = "UTF-8"
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	annotationProcessor(
-			"org.projectlombok:lombok"
-	)
-
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5'
 	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
 
-	runtimeOnly "org.springframework.boot:spring-boot-devtools"
 	runtimeOnly 'com.h2database:h2'
+	runtimeOnly "org.springframework.boot:spring-boot-devtools"
 	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 
+// restdocs
 ext {
 	snippetsDir = file('build/generated-snippets')
 }
