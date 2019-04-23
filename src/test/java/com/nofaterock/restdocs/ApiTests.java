@@ -34,6 +34,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * @author 한승룡
+ * @since 2019-02-14
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional

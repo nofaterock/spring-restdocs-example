@@ -11,7 +11,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 import static org.springframework.restdocs.snippet.Attributes.key;
 
 /**
- * @author nofaterock
+ * @author 한승룡
  * @since 2019-03-13
  */
 public interface UserSnippetHelper {

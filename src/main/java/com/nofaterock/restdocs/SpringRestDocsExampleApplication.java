@@ -5,6 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * @author 한승룡
+ * @since 2019-03-12
+ */
 @SpringBootApplication
 public class SpringRestDocsExampleApplication {
 
