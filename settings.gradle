@@ -3,4 +3,4 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'spring-rest-docs-example'
+rootProject.name = 'spring-restdocs-example'
