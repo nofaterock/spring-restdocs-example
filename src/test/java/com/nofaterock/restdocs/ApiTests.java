@@ -3,18 +3,15 @@ package com.nofaterock.restdocs;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nofaterock.restdocs.user.domain.User;
 import com.nofaterock.restdocs.user.service.UserService;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.JUnitRestDocumentation;
-import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +25,6 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,40 +33,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author 한승룡
  * @since 2019-02-14
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @Transactional
-@AutoConfigureRestDocs(uriScheme = "https", uriHost = "docs.api.com")
 public class ApiTests {
-
-	@Rule
-	public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation();
 
 	@Autowired
 	private WebApplicationContext context;
 
 	private MockMvc mockMvc;
-	private RestDocumentationResultHandler document;
 
 	@Autowired
 	private UserService userService;
 
-	@Before
-	public void before() {
-		this.document = document(
-			"{class-name}/{method-name}",
-			preprocessResponse(prettyPrint())
-		);
-
+	@BeforeEach
+	public void before(RestDocumentationContextProvider restDocumentation) {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
-			.apply(documentationConfiguration(this.restDocumentation))
-			.alwaysDo(document)
+			.apply(documentationConfiguration(restDocumentation))
 			.build();
-	}
-
-	@After
-	public void after() {
-
 	}
 
 	@Test
@@ -84,11 +63,11 @@ public class ApiTests {
 		this.mockMvc.perform(
 			post("/api/users")
 				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON)
 				.content(json))
 			.andDo(print())
 			.andExpect(status().isOk())
-			.andDo(document.document(
+			.andDo(document("{class-name}/{method-name}",
 				UserSnippetHelper.reqFields(),
 				UserSnippetHelper.resFields(false)
 			))
@@ -105,7 +84,7 @@ public class ApiTests {
 			get("/api/users/{id}", user1.getId()))
 			.andDo(print())
 			.andExpect(status().isOk())
-			.andDo(document.document(
+			.andDo(document("{class-name}/{method-name}",
 				UserSnippetHelper.pathParams(),
 				UserSnippetHelper.resFields(false)
 			))
@@ -123,7 +102,7 @@ public class ApiTests {
 			get("/api/users"))
 			.andDo(print())
 			.andExpect(status().isOk())
-			.andDo(document.document(
+			.andDo(document("{class-name}/{method-name}",
 				UserSnippetHelper.resFields(true)
 			))
 			.andExpect(jsonPath("$.[0].id", is(user1.getId())))
