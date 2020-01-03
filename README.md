@@ -9,6 +9,6 @@
 - Asciidoctor 1.5.9.2
 - JUnit
 
-## *.snippet syntax error in Intellij
+## `*.snippet` syntax error in Intellij
 
 Add `*.snippet` to `Settings -> Editor -> File Types -> AsciiDoc -> Registered Patterns`. 
