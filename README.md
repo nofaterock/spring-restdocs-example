@@ -1,4 +1,4 @@
- # Spring RestDocs Example 
+ # Spring REST Docs Example 
 
 - Java 1.8.0_202
 - Gradle 5.2.1
@@ -7,7 +7,8 @@
 - Hibernate 5
 - Spring RestDocs
 - Asciidoctor 1.5.9.2
-- JUnit
+- JUnit 5
+- Mock MVC
 
 ## `*.snippet` syntax error in Intellij
 
