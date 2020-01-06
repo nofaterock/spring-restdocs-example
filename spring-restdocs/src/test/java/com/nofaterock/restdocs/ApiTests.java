@@ -62,8 +62,8 @@ public class ApiTests {
 
 		this.mockMvc.perform(
 			post("/api/users")
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(json))
 			.andDo(print())
 			.andExpect(status().isOk())
@@ -81,7 +81,8 @@ public class ApiTests {
 		User user1 = userService.add("유저1", "별명1");
 
 		this.mockMvc.perform(
-			get("/api/users/{id}", user1.getId()))
+			get("/api/users/{id}", user1.getId())
+				.accept(MediaType.APPLICATION_JSON_UTF8))
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andDo(document("{class-name}/{method-name}",
@@ -99,7 +100,8 @@ public class ApiTests {
 		User user2 = userService.add("유저2", null);
 
 		this.mockMvc.perform(
-			get("/api/users"))
+			get("/api/users")
+				.accept(MediaType.APPLICATION_JSON_UTF8))
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andDo(document("{class-name}/{method-name}",

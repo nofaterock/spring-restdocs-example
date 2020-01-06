@@ -1,1 +1,3 @@
 rootProject.name = 'spring-restdocs-example'
+
+include 'spring-restdocs'
