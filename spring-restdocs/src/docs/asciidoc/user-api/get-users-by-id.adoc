@@ -1,0 +1,36 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toc-title: 목차
+:toclevels: 3
+:sectnums:
+:sectlinks:
+
+= `GET` /users/{id}
+
+link:../index.html[< Home]
+
+== Description
+id 에 해당하는 사용자를 가져옵니다.
+
+== Request
+
+=== curl
+include::{snippets}/user-api-tests/get-users-by-id/curl-request.adoc[]
+
+=== HTTP
+include::{snippets}/user-api-tests/get-users-by-id/http-request.adoc[]
+
+=== Path Parameters
+include::{snippets}/user-api-tests/get-users-by-id/path-parameters.adoc[]
+
+== Response
+
+=== HTTP
+include::{snippets}/user-api-tests/get-users-by-id/http-response.adoc[]
+
+=== Fields
+include::{snippets}/user-api-tests/get-users-by-id/response-fields.adoc[]
+
+

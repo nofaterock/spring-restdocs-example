@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @Transactional
-public class UsersApiTests {
+public class UserApiTests {
 
 	@Autowired
 	private WebApplicationContext context;
