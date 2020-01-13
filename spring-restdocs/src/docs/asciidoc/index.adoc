@@ -14,10 +14,10 @@
 |===
 |API|Method|Description
 
-|link:user/users_add.html[/users]|POST|사용자 등록
+|link:users-api/post-users.html[/users]|POST|사용자 등록
 
-|link:user/users.html[/users]|GET|사용자 목록 조회
+|link:users-api/get-users.html[/users]|GET|사용자 목록 조회
 
-|link:user/users_id.html[/users/{id}]|GET|사용자 조회
+|link:users-api/.get-users-by-idhtml[/users/{id}]|GET|사용자 조회
 
 |===

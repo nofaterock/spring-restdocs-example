@@ -25,6 +25,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @Transactional
-public class ApiTests {
+public class UsersApiTests {
 
 	@Autowired
 	private WebApplicationContext context;
@@ -54,7 +56,7 @@ public class ApiTests {
 	}
 
 	@Test
-	public void users_add() throws Exception {
+	public void postUsers() throws Exception {
 		Map<String, String> user = new HashMap<>();
 		user.put("name", "유저1");
 		user.put("nickname", "별명1");
@@ -67,7 +69,7 @@ public class ApiTests {
 				.content(json))
 			.andDo(print())
 			.andExpect(status().isOk())
-			.andDo(document("{class-name}/{method-name}",
+			.andDo(document("{class-name}/{method-name}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
 				UserSnippetHelper.reqFields(),
 				UserSnippetHelper.resFields(false)
 			))
@@ -77,7 +79,7 @@ public class ApiTests {
 	}
 
 	@Test
-	public void users_id() throws Exception {
+	public void getUsersById() throws Exception {
 		User user1 = userService.add("유저1", "별명1");
 
 		this.mockMvc.perform(
@@ -85,7 +87,7 @@ public class ApiTests {
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 			.andDo(print())
 			.andExpect(status().isOk())
-			.andDo(document("{class-name}/{method-name}",
+			.andDo(document("{class-name}/{method-name}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
 				UserSnippetHelper.pathParams(),
 				UserSnippetHelper.resFields(false)
 			))
@@ -95,7 +97,7 @@ public class ApiTests {
 	}
 
 	@Test
-	public void users() throws Exception {
+	public void getUsers() throws Exception {
 		User user1 = userService.add("유저1", "별명1");
 		User user2 = userService.add("유저2", null);
 
@@ -104,7 +106,7 @@ public class ApiTests {
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 			.andDo(print())
 			.andExpect(status().isOk())
-			.andDo(document("{class-name}/{method-name}",
+			.andDo(document("{class-name}/{method-name}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
 				UserSnippetHelper.resFields(true)
 			))
 			.andExpect(jsonPath("$.[0].id", is(user1.getId())))
