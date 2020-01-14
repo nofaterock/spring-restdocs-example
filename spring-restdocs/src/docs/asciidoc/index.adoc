@@ -18,6 +18,6 @@
 
 |link:user-api/get-users.html[/users]|GET|사용자 목록 조회
 
-|link:user-api/.get-users-by-idhtml[/users/{id}]|GET|사용자 조회
+|link:user-api/get-users-by-id.html[/users/{id}]|GET|사용자 조회
 
 |===
